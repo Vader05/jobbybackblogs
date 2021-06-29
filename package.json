@@ -1,0 +1,24 @@
+{
+  "name": "jobbybackend",
+  "version": "1.0.0",
+  "description": "backend del proyecto Jobby para blogs en plataforma de anuncios de trabajo",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "kevin cueva",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mogoose": "0.0.1-security",
+    "mongoose": "^5.13.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.7"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0"
+  }
+}
