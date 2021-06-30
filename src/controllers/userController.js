@@ -44,7 +44,12 @@ exports.getUserById = function(req, res){
 exports.getArticlesByIdUser= function(req, res){
     User.findById(req.params.id, function (err, user) {
         if (err) console.log(err);
-        res.status(200).json(user.article);
+        console.log(user)
+        if (user.article!=null){
+            res.status(200).json(user.article);
+        } else {
+            res.status(404).json("el usuario no tiene articulos nmms :u");
+        }
     });
 }
 
