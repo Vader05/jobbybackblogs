@@ -7,8 +7,8 @@ const articleSchema = new Schema({
         required: true
     },
     content:{
-        title: String,
-        requied:false
+        type: String,
+        required:false
     },
     img : {
         type: String,

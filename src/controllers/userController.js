@@ -42,7 +42,7 @@ exports.getUserById = function(req, res){
 }
 
 exports.getArticlesByIdUser= function(req, res){
-    User.findById(req.body.id, function (err, user) {
+    User.findById(req.params.id, function (err, user) {
         if (err) console.log(err);
         res.status(200).json(user.article);
     });

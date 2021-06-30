@@ -8,7 +8,7 @@ userRoute
 .get('/',userController.getUserById)
 
 userRoute
-.get('/article', userController.getArticlesByIdUser)
+.get('/article/:id', userController.getArticlesByIdUser)
 .post( '/createarticle',userController.createArticle)
 .post('/removearticle',userController.removeArticle)
 .post('/updatearticle', userController.updateArticle);
