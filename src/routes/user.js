@@ -11,6 +11,6 @@ userRoute
 .get('/article/:id', userController.getArticlesByIdUser)
 .post( '/createarticle',userController.createArticle)
 .post('/removearticle',userController.removeArticle)
-.post('/updatearticle', userController.updateArticle);
+.post('/updatearticle', userController.updateArticle1);
 
 module.exports = userRoute;

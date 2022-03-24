@@ -1,6 +1,7 @@
 
-
 const User = require("../models/user");
+const mongoose = require('mongoose');
+
 
 exports.userList= function(req, res){
     User.find({}, function (err, users) {
@@ -44,7 +45,12 @@ exports.getUserById = function(req, res){
 exports.getArticlesByIdUser= function(req, res){
     User.findById(req.params.id, function (err, user) {
         if (err) console.log(err);
-        res.status(200).json(user.article);
+        console.log(user)
+        if (user.article!=null){
+            res.status(200).json(user.article);
+        } else {
+            res.status(404).json("el usuario no tiene articulos nmms :u");
+        }
     });
 }
 
@@ -63,7 +69,7 @@ exports.removeArticle = function(req,res, next){
     })
 }
 
-exports.updateArticle= function(req, res){
+exports.updateArticle = function (req, res){
     var art= req.body;
     console.log(art);
     User.updateOne({'_id':art.id, 'article._id':art.idArticle},{'$set':{'article.$.title':art.title, 'article.$.content':art.content,'article.$.img':art.img,'article.$.updateAt': new Date()}}, function(err, afect){
@@ -80,3 +86,82 @@ exports.updateArticle= function(req, res){
         }
     });
 }
+
+
+exports.updateArticle1 = async function updateAlgo(req, res) {
+    const session = await mongoose.startSession();
+    session.startTransaction();
+    try {
+        var art= req.body;
+        console.log(art);
+        await User.updateOne({  '_id':art.id, 
+                                'article._id':art.idArticle},
+                                {'$set':{
+                                    'article.$.title':art.title, 
+                                    'article.$.content':art.content,
+                                    'article.$.img':art.img,
+                                    'article.$.updateAt': new Date()}
+                                }, 
+        function(err, afect){
+            if(err) console.log(err);
+            console.log(afect);
+            if(afect.nModified>0){
+                console.log(afect);
+                res.status(204).send();
+            }else{
+                res.status(404).json({
+                    'success':false,
+                    'msg':"no se encontro el articulo"
+                })
+            }
+        });
+      //await session.commitTransaction();
+      session.endSession();
+      return true;
+    } catch (error) {
+      // If an error occurred, abort the whole transaction and
+      // undo any changes that might have happened
+      await session.abortTransaction();
+      session.endSession();
+      throw error; 
+    }
+  }
+
+  exports.updateUser = async function updateAlgo(req, res) {
+    const session = await mongoose.startSession();
+    session.startTransaction();
+    try {
+        var art= req.body;
+        console.log(art);
+        await User.updateOne({  '_id':art.id, 
+                                'article._id':art.idArticle},
+                                {'$set':{
+                                    'article.$.title':art.title, 
+                                    'article.$.content':art.content,
+                                    'article.$.img':art.img,
+                                    'article.$.updateAt': new Date()}
+                                }, 
+        function(err, afect){
+            if(err) console.log(err);
+            console.log(afect);
+            if(afect.nModified>0){
+                console.log(afect);
+                res.status(204).send();
+            }else{
+                res.status(404).json({
+                    'success':false,
+                    'msg':"no se encontro el articulo"
+                })
+            }
+        });
+      //await session.commitTransaction();
+      session.endSession();
+      return true;
+    } catch (error) {
+      // If an error occurred, abort the whole transaction and
+      // undo any changes that might have happened
+      await session.abortTransaction();
+      session.endSession();
+      throw error; 
+    }
+  }

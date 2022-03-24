@@ -19,9 +19,7 @@ const connect = mongoose.connect(mongoDB, {
     useUnifieldTopology:true,
     useNewUrlParse: true,
     useFindAndModify:false
-});
-
-connect.then(conect=>{
+}).then(conect=>{
     console.log("connection success!!");
 }).catch(err=>console.log(err));
 
@@ -66,3 +64,4 @@ app.listen(port, ()=>{
     console.log("server listen on port: ", port);
 })
 
+module.exports = connect;
